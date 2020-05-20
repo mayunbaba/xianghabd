@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <h2>fdsljkhfjk</h2>
+  <div class="user">
+    user
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Home',
+  name: 'User',
   created:()=>{
-    console.log(22);
-    
   }
 }
 </script>

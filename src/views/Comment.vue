@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <h2>fdsljkhfjk</h2>
+  <div class="comment">
+comment
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Home',
+  name: 'Comment',
   created:()=>{
-    console.log(22);
-    
   }
 }
 </script>

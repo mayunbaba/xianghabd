@@ -1,32 +1,72 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <van-tabbar v-model="active" route active-color='#000'>
+      <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path">
+        <template #icon="props">
+          <img :src="props.active ?  item.icon.active : item.icon.inactive">
+        </template>
+        <span>{{item.title}}</span>
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import "@/assets/images/tabbar/home-icon.png";
+import "@/assets/images/tabbar/home-active-icon.png";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  name: "app",
+  component: {},
+  data: () => {
+    return {
+      active: 0,
+      nav: [
+        {
+          title: "首页",
+          path:'/home',
+          icon: {
+            active: require("@/assets/images/tabbar/home-active-icon.png"),
+            inactive: require("@/assets/images/tabbar/home-icon.png")
+          }
+        },
+        {
+          title: "分类",
+          path:'/classify',
+          icon: {
+            active: require("@/assets/images/tabbar/classify-active-icon.png"),
+            inactive: require("@/assets/images/tabbar/classify-icon.png")
+          }
+        },
+        {
+          title: "消息",
+          path:'/comment',
+          icon: {
+            active: require("@/assets/images/tabbar/comment-active-icon.png"),
+            inactive: require("@/assets/images/tabbar/comment-icon.png")
+          }
+        },
+        {
+          title: "我的",
+          path:'/user',
+          icon: {
+            active: require("@/assets/images/tabbar/user-active-icon.png"),
+            inactive: require("@/assets/images/tabbar/user-icon.png")
+          }
+        },
+      ],
+    };
   }
+};
+</script>
+
+
+<style lang="less" scoped>
+.van-tabbar-item__icon img{
+  height: 25px;
 }
 </style>
