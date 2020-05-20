@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import "@/assets/images/tabbar/home-icon.png";
-import "@/assets/images/tabbar/home-active-icon.png";
 
 export default {
   name: "app",
@@ -29,32 +27,32 @@ export default {
           title: "首页",
           path:'/home',
           icon: {
-            active: require("@/assets/images/tabbar/home-active-icon.png"),
-            inactive: require("@/assets/images/tabbar/home-icon.png")
+            active: require("assets/images/tabbar/home-active-icon.png"),
+            inactive: require("assets/images/tabbar/home-icon.png")
           }
         },
         {
           title: "分类",
           path:'/classify',
           icon: {
-            active: require("@/assets/images/tabbar/classify-active-icon.png"),
-            inactive: require("@/assets/images/tabbar/classify-icon.png")
+            active: require("assets/images/tabbar/classify-active-icon.png"),
+            inactive: require("assets/images/tabbar/classify-icon.png")
           }
         },
         {
           title: "消息",
           path:'/comment',
           icon: {
-            active: require("@/assets/images/tabbar/comment-active-icon.png"),
-            inactive: require("@/assets/images/tabbar/comment-icon.png")
+            active: require("assets/images/tabbar/comment-active-icon.png"),
+            inactive: require("assets/images/tabbar/comment-icon.png")
           }
         },
         {
           title: "我的",
           path:'/user',
           icon: {
-            active: require("@/assets/images/tabbar/user-active-icon.png"),
-            inactive: require("@/assets/images/tabbar/user-icon.png")
+            active: require("assets/images/tabbar/user-active-icon.png"),
+            inactive: require("assets/images/tabbar/user-icon.png")
           }
         },
       ],

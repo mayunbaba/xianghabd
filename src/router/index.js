@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-let Home = () => import('../views/Home.vue')
-let Classify = () => import('../views/Classify.vue')
-let Comment = () => import('../views/Comment.vue')
-let User = () => import('../views/User.vue')
+let Home = () => import('../views/app/Home.vue')
+let Classify = () => import('../views/app/Classify.vue')
+let Comment = () => import('../views/app/Comment.vue')
+let User = () => import('../views/app/User.vue')
 
 Vue.use(VueRouter)
 
