@@ -8,7 +8,7 @@
 
 export default {
   name: 'User',
-  created:()=>{
+  created(){
   }
 }
 </script>

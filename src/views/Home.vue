@@ -8,8 +8,7 @@
 
 export default {
   name: 'Home',
-  created:()=>{
-    console.log(22);
+  created(){
     
   }
 }

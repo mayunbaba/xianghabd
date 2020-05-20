@@ -8,7 +8,7 @@ comment
 
 export default {
   name: 'Comment',
-  created:()=>{
+  created(){
   }
 }
 </script>

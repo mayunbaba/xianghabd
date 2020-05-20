@@ -8,7 +8,7 @@
 
 export default {
   name: 'Classify',
-  created:()=>{
+  created(){
   }
 }
 </script>

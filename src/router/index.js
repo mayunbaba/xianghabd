@@ -24,8 +24,8 @@ const routes = [
     }
   },
   {
-    path: '/calssify',
-    name: 'Calssify',
+    path: '/classify',
+    name: 'Classify',
     component: Classify,
     meta: {
       title: '分类',
@@ -58,10 +58,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
-// 前后守卫（hook）
-// router.beforeEach((to, from, next) => {
-//   // document.title = to.matched[0].meta.title;
-//   next();
-// })
+// 前置守卫（hook）
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
+})
 
 export default router

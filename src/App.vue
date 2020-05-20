@@ -4,8 +4,8 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <van-tabbar v-model="active" route active-color='#000'>
-      <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path">
+    <van-tabbar route active-color='#000'>
+      <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path" replace>
         <template #icon="props">
           <img :src="props.active ?  item.icon.active : item.icon.inactive">
         </template>
@@ -24,7 +24,6 @@ export default {
   component: {},
   data: () => {
     return {
-      active: 0,
       nav: [
         {
           title: "首页",
