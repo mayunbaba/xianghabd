@@ -9,10 +9,8 @@ import { request } from "@/network/request";
 
 export default {
   name: "Home",
-  methods: {
-  },
+  methods: {},
   created() {
-    
     request("/Baidu/v1/index/home")
       .then(res => {
         console.log(res);
@@ -21,13 +19,30 @@ export default {
         console.log(err);
       });
 
-      request("/Baidu/v1/Index/recommend")
+    request("/Baidu/v1/Index/recommend")
       .then(res => {
         console.log(res);
       })
       .catch(err => {
         console.log(err);
       });
+    request("/Baidu/v1/Index/recommend")
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    setTimeout(() => {
+      request("/Baidu/v1/Index/recommend")
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, 5000);
   }
 };
 </script>
