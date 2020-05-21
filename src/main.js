@@ -10,9 +10,9 @@ Vue.config.productionTip = false
 
 
 import {
-  Tabbar,TabbarItem,Icon
+  Tabbar,TabbarItem,Icon,Swipe, SwipeItem,Search,Tab,Tabs
 } from 'vant'
-Vue.use(Tabbar).use(TabbarItem).use(Icon)
+Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Swipe).use(SwipeItem).use(Search).use(Tab).use(Tabs)
 
 new Vue({
   router,

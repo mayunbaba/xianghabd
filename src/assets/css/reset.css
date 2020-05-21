@@ -603,3 +603,7 @@ audio:not([controls]) {
 }
 
 /*# sourceMappingURL=neat.css.map */
+
+.van-field__body {
+  height: 0.48rem;
+}
