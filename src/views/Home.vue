@@ -66,7 +66,7 @@ export default {
   },
   // 这两个函数, 只有该组件被保持了状态使用了keep-alive时, 才是有效的
   activated() {
-    this.$router.push(this.path);
+    // this.$router.push(this.path);
     console.log("activated");
   },
   deactivated() {

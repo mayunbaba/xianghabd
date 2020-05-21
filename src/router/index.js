@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const Home = () => import('../views/app/Home.vue')
-const Classify = () => import('../views/app/Classify.vue')
-const Comment = () => import('../views/app/Comment.vue')
-const User = () => import('../views/app/User.vue')
+const Home = () => import('../views/Home.vue')
+const Classify = () => import('../views/Classify.vue')
+const Comment = () => import('../views/Comment.vue')
+const User = () => import('../views/User.vue')
 
-const Video = ()=> import('../views/app/home/Video')
-const Skill = ()=> import('../views/app/home/Skill')
-const Recom = ()=> import('../views/app/home/Recom')
-const Hot = ()=> import('../views/app/home/Hot')
+const Video = ()=> import('../views/home/Video')
+const Skill = ()=> import('../views/home/Skill')
+const Recom = ()=> import('../views/home/Recom')
+const Hot = ()=> import('../views/home/Hot')
 
 
 
