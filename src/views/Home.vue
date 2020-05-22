@@ -73,14 +73,13 @@ export default {
       ],
       tabFixed:false,
       path: "",
-      tabTop:0,
+      tabTop:357,
 
     };
   },
   methods: {
     goSearch() {},
     scroll(e){
-      if(!this.tabTop) return this.tabTop = document.querySelectorAll('.tab-list')[0].scrollTop
       if(e.scrollTop >= this.tabTop){
         this.tabFixed = true;
       }else{
@@ -99,9 +98,9 @@ export default {
     this.initData();
   },
   mounted(){
-    setTimeout(()=>{
-      this.tabTop = document.querySelectorAll('.tab-list')[0].offsetTop
-    },800)
+    // setTimeout(()=>{
+    //   this.tabTop = document.querySelectorAll('.tab-list')[0].offsetTop
+    // },800)
   },
   // 这两个函数, 只有该组件被保持了状态使用了keep-alive时, 才是有效的
   activated() {

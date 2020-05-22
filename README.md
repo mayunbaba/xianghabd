@@ -27,4 +27,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 #####1.嵌套路由报错（vue.config.js  publicPath: '/',）
 #####2.接口请求token
-#####3.获取元素距离顶部高度 mounted 300ms
+#####3.获取元素距离顶部高度不准确 （未解决）
