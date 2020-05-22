@@ -20,68 +20,103 @@
         </div>
       </div>
     </div>
-    <van-tabs sticky swipeable animated lazy-render>
-      <van-tab v-for="(item,index) in tabList" :title="item.name" :key="item+index">
-        
-      </van-tab>
-    </van-tabs>
-    <!-- <router-link to="/home/video" tag="button">video</router-link>
-    <router-link to="/home/skill" tag="button">video</router-link> -->
-    <!-- <router-link to="/home/video" tag="button">video</router-link>
-    <router-link to="/home/recom" tag="button">recom</router-link>-->
-    <!-- <router-view/> -->
-    <router-link to="/home/recom">推荐</router-link>
-    <router-link to="/home/hot">热门</router-link>
+    <div class="tab-list" v-show="!tabFixed">
+      <van-tabs sticky v-model="path" @scroll="scroll" >
+        <van-tab v-for="(item,index) in tabList" :title="item.name" :key="item+index" :name="item.path" :to="item.path" repalce>
+        </van-tab>
+      </van-tabs>
+    </div>
+    <div class="tab-list fixed" v-show="tabFixed">
+      <van-tabs sticky v-model="path" @scroll="scroll" >
+        <van-tab v-for="(item,index) in tabList" :title="item.name" :key="item+index" :name="item.path" :to="item.path" repalce>
+        </van-tab>
+      </van-tabs>
+    </div>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
 
-    <router-view></router-view>
+
   </div>
 </template>
 
 <script>
 import { request } from "@/network/request";
+import {GetUrlRelativePath} from "../assets/js/common";
 
 export default {
   name: "Home",
   data() {
     return {
       modelList: {},
-      tabList: {},
-      path: "/home/recom"
+      tabList: [
+        {
+          "type":1,
+          "name":"短视频",
+          "path":'/home/video'
+        },
+        {
+          "type":4,
+          "name":"小技巧",
+          "path":'/home/skill'
+        },
+        {
+          "type":2,
+          "name":"热门菜谱",
+          "path":'/home/hot'
+        },
+        {
+          "type":11,
+          "name":"本周佳作",
+          "path":'/home/recom'
+        }
+      ],
+      tabFixed:false,
+      path: "",
+      tabTop:0,
+
     };
   },
   methods: {
-    goSearch() {}
+    goSearch() {},
+    scroll(e){
+      if(!this.tabTop) return this.tabTop = document.querySelectorAll('.tab-list')[0].scrollTop
+      if(e.scrollTop >= this.tabTop){
+        this.tabFixed = true;
+      }else{
+        this.tabFixed = false;
+      }
+    },
+    initData(){
+      request("/Baidu/v1/Index/recommend").then(res => {
+        this.modelList = res;
+      });
+    }
   },
   created() {
-    request("/Baidu/v1/Index/recommend").then(res => {
-      this.modelList = res;
-    });
-    request("/Baidu/v1/Index/home").then(res => {
-      console.log(res);
-      this.tabList = res.tabList;
-    });
+    //对应路由和active关系
+    this.path = GetUrlRelativePath(location.href);
+    this.initData();
   },
-  destroyed() {
-    console.log("home destroyed");
+  mounted(){
+    setTimeout(()=>{
+      this.tabTop = document.querySelectorAll('.tab-list')[0].offsetTop
+    },800)
   },
   // 这两个函数, 只有该组件被保持了状态使用了keep-alive时, 才是有效的
   activated() {
-    // this.$router.push(this.path);
-    console.log("activated");
-  },
-  deactivated() {
-    console.log("deactivated");
+    if(this.$route.path !== this.path){
+      this.$router.replace(this.path);
+    }
   },
   beforeRouteLeave(to, from, next) {
-    alert(111);
-    console.log(this.$route.path);
     this.path = this.$route.path;
     next();
   }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .home {
   .top {
     border-bottom: 0.1rem solid #f3f3f3;
@@ -135,6 +170,20 @@ export default {
         width: 1.72rem;
         height: 1.4rem;
       }
+    }
+  }
+  .tab-list{
+    width: 100%;
+    height:.88rem;
+    &.fixed{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    .van-tabs__line{
+      width: 47px;
+      transform: translateX(47px) translateX(-50%);
     }
   }
 }

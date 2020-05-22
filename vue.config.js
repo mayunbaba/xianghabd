@@ -1,6 +1,6 @@
 module.exports = {
   outputDir: 'dist',
-  publicPath: '',
+  publicPath: '/',
   assetsDir: '',
   configureWebpack: {
     resolve: {

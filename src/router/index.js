@@ -30,10 +30,6 @@ const routes = [
       keepAlive: true
     },
     children:[
-      // {
-      //   path: '',
-      //   redirect: 'news'
-      // },
       {
         path: 'video',
         component: Video,
@@ -88,9 +84,9 @@ const router = new VueRouter({
   routes,
 })
 // 前置守卫（hook）
-// router.beforeEach((to, from, next) => {
-//   // document.title = to.meta.title;
-//   next();
-// })
+router.beforeEach((to, from, next) => {
+  document.title = to.matched[0].meta.title;
+  next();
+})
 
 export default router

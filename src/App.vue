@@ -1,12 +1,12 @@
 <template>
   <div id="app">
+
     <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
+      <router-view></router-view>
     </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <van-tabbar route active-color='#000'>
-      <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path" replace>
-        <template #icon="props">
+    <van-tabbar v-model="path" safe-area-inset-bottom active-color='#000'>
+      <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path" replace :name="item.path">
+        <template v-slot:icon="props" >
           <img :src="props.active ?  item.icon.active : item.icon.inactive">
         </template>
         <span>{{item.title}}</span>
@@ -15,13 +15,16 @@
   </div>
 </template>
 
-<script>
 
-export default {
+<script>
+  import {GetUrlRelativePath} from "@/assets/js/common";
+
+  export default {
   name: "app",
   component: {},
   data: () => {
     return {
+      path:'',
       nav: [
         {
           title: "首页",
@@ -57,6 +60,12 @@ export default {
         },
       ],
     };
+  },
+  methods:{
+  },
+  created() {
+    //首次进入关联路由和icon状态
+    this.path = '/'+GetUrlRelativePath(location.href).split('/')[1];
   }
 };
 </script>

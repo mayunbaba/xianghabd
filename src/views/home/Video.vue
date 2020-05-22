@@ -9,11 +9,15 @@ video
 export default {
   name: 'Video',
   created(){
+    console.log('video');
+  },
+  destroyed() {
+    console.log('video-destroy');
   }
 }
 </script>
 
 <style lang="less">
-  
+
 </style>
 
