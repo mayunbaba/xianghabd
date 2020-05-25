@@ -87,7 +87,7 @@ export default {
       }
     },
     initData(){
-      request("/Baidu/v1/Index/recommend").then(res => {
+      request("/baidu/v1/index/recommend").then(res => {
         this.modelList = res;
       });
     }

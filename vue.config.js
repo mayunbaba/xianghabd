@@ -16,7 +16,7 @@ module.exports = {
     open: true, // 配置自动启动浏览器
     hotOnly: true, // 热更新
     proxy: {
-      '/Baidu':{
+      '/baidu':{
         target:'https://apielf.xiangha.com/',
         changeOrigin:true,
         pathRewrite:{
