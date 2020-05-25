@@ -73,7 +73,7 @@ export default {
       ],
       tabFixed:false,
       path: "",
-      tabTop:357,
+      tabTop:0,
 
     };
   },
@@ -96,11 +96,8 @@ export default {
     //对应路由和active关系
     this.path = GetUrlRelativePath(location.href);
     this.initData();
-  },
-  mounted(){
-    // setTimeout(()=>{
-    //   this.tabTop = document.querySelectorAll('.tab-list')[0].offsetTop
-    // },800)
+    this.tabTop = 356.5;
+    
   },
   // 这两个函数, 只有该组件被保持了状态使用了keep-alive时, 才是有效的
   activated() {
