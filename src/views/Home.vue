@@ -20,94 +20,71 @@
         </div>
       </div>
     </div>
-    <div class="tab-list" v-show="!tabFixed">
-      <van-tabs sticky v-model="path" @scroll="scroll" >
-        <van-tab v-for="(item,index) in tabList" :title="item.name" :key="item+index" :name="item.path" :to="item.path" repalce>
-        </van-tab>
-      </van-tabs>
-    </div>
-    <div class="tab-list fixed" v-show="tabFixed">
-      <van-tabs sticky v-model="path" @scroll="scroll" >
-        <van-tab v-for="(item,index) in tabList" :title="item.name" :key="item+index" :name="item.path" :to="item.path" repalce>
-        </van-tab>
-      </van-tabs>
-    </div>
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
-
-
+    <van-tabs v-model="activeIndex" animated sticky swipeable @change="tabChange">
+      <van-tab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name">
+        <div v-for="item in tabData[activeIndex]" :key="item.code">{{item.title}}</div>
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 
 <script>
 import { request } from "@/network/request";
-import {GetUrlRelativePath} from "../assets/js/common";
 
 export default {
   name: "Home",
   data() {
     return {
+      activeIndex: 0,
       modelList: {},
-      tabList: [
-        {
-          "type":1,
-          "name":"短视频",
-          "path":'/home/video'
-        },
-        {
-          "type":4,
-          "name":"小技巧",
-          "path":'/home/skill'
-        },
-        {
-          "type":2,
-          "name":"热门菜谱",
-          "path":'/home/hot'
-        },
-        {
-          "type":11,
-          "name":"本周佳作",
-          "path":'/home/recom'
-        }
-      ],
-      tabFixed:false,
-      path: "",
-      tabTop:0,
-
+      tabList: [],
+      tabData: [],
+      nextUrls: []
     };
   },
   methods: {
     goSearch() {},
-    scroll(e){
-      if(e.scrollTop >= this.tabTop){
-        this.tabFixed = true;
-      }else{
-        this.tabFixed = false;
-      }
-    },
-    initData(){
+    // 主页数据
+    initData() {
       request("/baidu/v1/index/recommend").then(res => {
         this.modelList = res;
       });
+    },
+    // tab基础数据及首屏数据
+    getTabData() {
+      request("/baidu/v1/index/home?")
+        .then(res => {
+          this.tabList = res.tabList;
+          return res;
+        })
+        .then(res => {
+          this.tabList.forEach((item, index) => {
+            if (item.type == res.type) {
+              this.activeIndex = index;
+            }
+          });
+          this.$set(this.tabData, this.activeIndex, res.first.list);
+          this.nextUrls[this.activeIndex] = res.first.netUrl;
+        });
+    },
+    // 请求推荐数据
+    getRecomData() {
+      request("/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex]).then(
+        res => {
+          this.$set(this.tabData, this.activeIndex, res.list);
+        }
+      );
+    },
+    tabChange(name) {
+      this.activeIndex = name;
+      this.nextUrls[this.activeIndex] =
+        "type=" + this.tabList[this.activeIndex].type;
+      this.getRecomData();
     }
   },
   created() {
-    //对应路由和active关系
-    this.path = GetUrlRelativePath(location.href);
     this.initData();
-    this.tabTop = 356.5;
-    
-  },
-  // 这两个函数, 只有该组件被保持了状态使用了keep-alive时, 才是有效的
-  activated() {
-    if(this.$route.path !== this.path){
-      this.$router.replace(this.path);
-    }
-  },
-  beforeRouteLeave(to, from, next) {
-    this.path = this.$route.path;
-    next();
+    this.getTabData();
   }
 };
 </script>
@@ -168,16 +145,16 @@ export default {
       }
     }
   }
-  .tab-list{
+  .tab-list {
     width: 100%;
-    height:.88rem;
-    &.fixed{
+    height: 0.88rem;
+    &.fixed {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
     }
-    .van-tabs__line{
+    .van-tabs__line {
       width: 47px;
       transform: translateX(47px) translateX(-50%);
     }

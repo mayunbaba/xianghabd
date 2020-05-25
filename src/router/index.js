@@ -6,10 +6,7 @@ const Classify = () => import('../views/Classify.vue')
 const Comment = () => import('../views/Comment.vue')
 const User = () => import('../views/User.vue')
 
-const Video = ()=> import('../views/home/Video')
-const Skill = ()=> import('../views/home/Skill')
-const Recom = ()=> import('../views/home/Recom')
-const Hot = ()=> import('../views/home/Hot')
+
 
 
 
@@ -27,26 +24,7 @@ const routes = [
     component: Home,
     meta: {
       title: '香哈菜谱',
-      keepAlive: true
     },
-    children:[
-      {
-        path: 'video',
-        component: Video,
-      },
-      {
-        path: 'skill',
-        component: Skill,
-      },
-      {
-        path: 'recom',
-        component: Recom,
-      },
-      {
-        path: 'hot',
-        component: Hot,
-      },
-    ]
   },
   {
     path: '/classify',
@@ -54,7 +32,6 @@ const routes = [
     component: Classify,
     meta: {
       title: '分类',
-      keepAlive: true
     }
   },
   {
@@ -63,7 +40,6 @@ const routes = [
     component: Comment,
     meta: {
       title: '消息',
-      keepAlive: true
     }
   },
   {
@@ -72,7 +48,6 @@ const routes = [
     component: User,
     meta: {
       title: '我的',
-      keepAlive: true
     }
   }
 ]
@@ -85,7 +60,7 @@ const router = new VueRouter({
 })
 // 前置守卫（hook）
 router.beforeEach((to, from, next) => {
-  document.title = to.matched[0].meta.title;
+  document.title = to.meta.title;
   next();
 })
 
