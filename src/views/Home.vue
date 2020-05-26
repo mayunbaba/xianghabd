@@ -59,7 +59,11 @@ export default {
       tabData: [],
       nextUrls: [],
       loading: [],
-      finished: []
+      finished: [],
+      scroll: {
+        x: 0,
+        y: 0
+      }
     };
   },
   methods: {
@@ -127,6 +131,19 @@ export default {
   created() {
     this.initData();
     this.getTabData();
+  },
+  activated() {
+    setTimeout(()=>{
+      window.scroll(this.scroll.x, this.scroll.y)
+    },0);
+  },
+
+  beforeRouteLeave(to, from, next) {
+    this.scroll = {
+      x: document.documentElement.scrollLeft,
+      y: document.documentElement.scrollTop
+    };
+    next();
   }
 };
 </script>

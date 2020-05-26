@@ -57,6 +57,16 @@ const router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'active',
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        x: 0,
+        y: 0
+      }
+    }
+  }
 })
 // 前置守卫（hook）
 router.beforeEach((to, from, next) => {
