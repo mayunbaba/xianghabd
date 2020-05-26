@@ -22,7 +22,17 @@
     </div>
     <van-tabs v-model="activeIndex" animated sticky swipeable @change="tabChange">
       <van-tab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name">
-        <div v-for="item in tabData[activeIndex]" :key="item.code">{{item.title}}</div>
+        <van-list
+          v-model="loading[activeIndex]"
+          :finished="finished[activeIndex]"
+          finished-text="没有更多了"
+          @load="getRecomData"
+        >
+          <div v-for="(item,index) in tabData[activeIndex]" :key="item.code+index">{{item.title}}</div>
+        </van-list>
+        <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="getRecomData">
+          <van-cell v-for="item in list" :key="item" :title="item"/>
+        </van-list>-->
       </van-tab>
     </van-tabs>
   </div>
@@ -39,7 +49,9 @@ export default {
       modelList: {},
       tabList: [],
       tabData: [],
-      nextUrls: []
+      nextUrls: [],
+      loading: [],
+      finished: []
     };
   },
   methods: {
@@ -63,23 +75,36 @@ export default {
               this.activeIndex = index;
             }
           });
-          this.$set(this.tabData, this.activeIndex, res.first.list);
-          this.nextUrls[this.activeIndex] = res.first.netUrl;
+          this.tabData[this.activeIndex] = res.first.list;
+          this.nextUrls[this.activeIndex] = res.first.nextUrl;
         });
     },
     // 请求推荐数据
     getRecomData() {
-      request("/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex]).then(
+      // if(!this.nextUrls[this.activeIndex]) {
+      //   this.loading[this.activeIndex] = false;
+      //   return;
+      // }
+      request("/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex]||'').then(
         res => {
-          this.$set(this.tabData, this.activeIndex, res.list);
+          this.tabData[this.activeIndex] = [
+            ...(this.tabData[this.activeIndex] || []),
+            ...res.list
+          ];
+          this.$set(
+            this.tabData,
+            this.activeIndex,
+            this.tabData[this.activeIndex]
+          );
+          this.nextUrls[this.activeIndex] = res.nextUrl;
         }
       );
     },
+    // tab切换
     tabChange(name) {
       this.activeIndex = name;
       this.nextUrls[this.activeIndex] =
         "type=" + this.tabList[this.activeIndex].type;
-      this.getRecomData();
     }
   },
   created() {
