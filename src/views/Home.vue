@@ -98,8 +98,6 @@ export default {
     },
     // 请求推荐数据
     getRecomData() {
-      console.log(this.loading);
-
       if (this.loading[this.activeIndex]) return;
       this.loading[this.activeIndex] = true;
       request(
