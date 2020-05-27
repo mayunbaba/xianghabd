@@ -1,32 +1,65 @@
 <template>
-  <div class="tabs" @click="clickEvent">
-    <slot></slot>
+  <div class="tabs-wrap">
+    <div class="tabs" :class="{sticky:sticky,fixed:isFixed}">
+      <slot></slot>
+    </div>
+    <div class="tabs" v-if="sticky"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Tabs",
-  props: {},
-  data() {
-    return {
-      // active: this.value
-    };
-  },
-  methods: {
-    clickEvent() {
-      // this.active = 2;
-      // this.$emit("click", this.active);
+  props: {
+    sticky: {
+      type: Boolean,
+      default: false
     }
   },
-  created() {}
+  data() {
+    return {
+      isFixed: false,
+      offsetTop: 0
+    };
+  },
+  mounted() {
+    if(!this.sticky) return;
+    window.addEventListener("scroll", this.initHeight);
+    this.$nextTick(() => {
+      this.offsetTop = document.querySelector(".tabs-wrap").offsetTop;
+    });
+  },
+  methods: {
+    initHeight() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      this.isFixed = scrollTop > this.offsetTop ? true : false;
+    }
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 };
 </script>
 
-<style lang="less">
-.tabs {
-  display: flex;
-  background-color: #ffffff;
+<style lang="less" scoped>
+.tabs-wrap {
+  position: relative;
+  .tabs {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    background-color: #ffffff;
+    &.sticky {
+      position: absolute;
+      top: 0;
+    }
+    &.fixed{
+      position: fixed;
+    }
+  }
 }
 </style>
 

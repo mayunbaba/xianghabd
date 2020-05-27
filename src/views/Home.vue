@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!-- 顶部基础信息 -->
     <div class="top">
       <van-search placeholder="搜菜谱、食材" background="#000" disabled @click="goSearch"/>
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -20,7 +21,8 @@
         </div>
       </div>
     </div>
-    <Tabs>
+    <!-- tab+瀑布流布局 -->
+    <Tabs sticky>
       <Tab
         :title="item.name"
         :name="index"
@@ -32,29 +34,23 @@
       >
       </Tab>
     </Tabs>
-    <van-tabs v-model="activeIndex" animated sticky swipeable @click="tabChange">
-      <van-tab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name">
-        <van-list
-          :immediate-check="false"
-          :finished="finished[activeIndex]"
-          finished-text="没有更多了"
-          @load="getRecomData"
-        >
-          <div class="dish-wrap">
-            <div
-              class="dish-item"
-              v-for="(item,index) in tabData[activeIndex]"
-              :key="item.code+index"
-            >
-              <img :src="item.image.url">
-              <div class="bottom">
-                <div class="title">{{item.title}}</div>
-              </div>
-            </div>
+    <van-list
+      :immediate-check="false"
+      :finished="finished[activeIndex]"
+      finished-text="没有更多了"
+      @load="getRecomData"
+      v-for="(item,index) in tabData" :key="index"
+      v-show="index === activeIndex"
+    >
+      <div class="dish-wrap" >
+        <div class="dish-item" v-for="item in item" :key="item.code">
+          <img :src="item.image.url">
+          <div class="bottom">
+            <div class="title">{{item.title}}</div>
           </div>
-        </van-list>
-      </van-tab>
-    </van-tabs>
+        </div>
+      </div>
+    </van-list>
   </div>
 </template>
 
@@ -101,6 +97,7 @@ export default {
         })
         .then(res => {
           this.tabList.forEach((item, index) => {
+            this.nextUrls[index] = "type=" + this.tabList[index].type;
             if (item.type == res.type) {
               this.activeIndex = index;
             }
@@ -137,8 +134,6 @@ export default {
     // tab切换
     tabChange(name) {
       this.activeIndex = name;
-      this.nextUrls[this.activeIndex] =
-        "type=" + this.tabList[this.activeIndex].type;
       if (!this.tabData[this.activeIndex]) {
         this.getRecomData();
       }
@@ -164,11 +159,12 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .home {
   background-color: #fff;
   .top {
     border-bottom: 0.1rem solid #f3f3f3;
+    height: 7.13rem;
   }
   .cover {
     width: 100%;
@@ -237,6 +233,7 @@ export default {
   }
 }
 .dish-wrap {
+  width: 100%;
   display: flex;
   box-sizing: border-box;
   width: 100%;
