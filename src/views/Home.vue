@@ -27,7 +27,7 @@
 
 <script>
 import { request } from "@/network/request";
-import HomeTab from "./HomeTab";
+import HomeTab from "./home/HomeTab";
 
 export default {
   name: "Home",

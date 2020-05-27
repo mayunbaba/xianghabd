@@ -32,9 +32,9 @@
 
 <script>
 import { request } from "@/network/request";
-import Tabs from "../components/tabs/Tabs";
-import Tab from "../components/tabs/Tab";
-import DishItem from '../components/dishItem/DishItem';
+import Tabs from "@/components/tabs/Tabs";
+import Tab from "@/components/tabs/Tab";
+import DishItem from '@/components/dishItem/DishItem';
 export default {
   name: "HomeTab",
   components: {
