@@ -22,7 +22,7 @@
       v-show="index === activeIndex"
     >
       <div class="dish-wrap">
-        <div class="dish-item" v-for="item in item" :key="item.code" ref="dishitem">
+        <div class="dish-item" v-for="item in item" :key="item.code">
           <img
             :src="item.image.url"
             :style="{width:imgWid,height:imgWid*item.image.height/item.image.width}"
