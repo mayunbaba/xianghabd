@@ -23,7 +23,7 @@ export default {
     };
   },
   mounted() {
-    if(!this.sticky) return;
+    if (!this.sticky) return;
     window.addEventListener("scroll", this.initHeight);
     this.$nextTick(() => {
       this.offsetTop = document.querySelector(".tabs-wrap").offsetTop;
@@ -56,10 +56,9 @@ export default {
       position: absolute;
       top: 0;
     }
-    &.fixed{
+    &.fixed {
       position: fixed;
     }
   }
 }
 </style>
-
