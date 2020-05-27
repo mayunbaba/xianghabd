@@ -20,7 +20,19 @@
         </div>
       </div>
     </div>
-    <van-tabs v-model="activeIndex" animated sticky swipeable @change="tabChange">
+    <Tabs>
+      <Tab
+        :title="item.name"
+        :name="index"
+        v-for="(item,index) in tabList"
+        :key="item.name"
+        activeColor="red"
+        v-model="activeIndex"
+        @click="tabChange"
+      >
+      </Tab>
+    </Tabs>
+    <van-tabs v-model="activeIndex" animated sticky swipeable @click="tabChange">
       <van-tab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name">
         <van-list
           :immediate-check="false"
@@ -48,9 +60,15 @@
 
 <script>
 import { request } from "@/network/request";
+import Tabs from "../components/tabs/Tabs";
+import Tab from "../components/tabs/Tab";
 
 export default {
   name: "Home",
+  components: {
+    Tabs,
+    Tab
+  },
   data() {
     return {
       activeIndex: 0,
@@ -131,9 +149,9 @@ export default {
     this.getTabData();
   },
   activated() {
-    setTimeout(()=>{
-      window.scroll(this.scroll.x, this.scroll.y)
-    },0);
+    setTimeout(() => {
+      window.scroll(this.scroll.x, this.scroll.y);
+    }, 0);
   },
 
   beforeRouteLeave(to, from, next) {

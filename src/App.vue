@@ -6,7 +6,7 @@
     </keep-alive>
     <van-tabbar v-model="path" safe-area-inset-bottom placeholder active-color='#000'>
       <van-tabbar-item v-for="(item,index) in nav" :key="index" :to="item.path" replace :name="item.path">
-        <template v-slot:icon="props" >
+        <template v-slot:icon="props">
           <img :src="props.active ?  item.icon.active : item.icon.inactive">
         </template>
         <span>{{item.title}}</span>
