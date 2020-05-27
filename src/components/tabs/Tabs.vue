@@ -39,7 +39,7 @@ export default {
     }
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll");
   }
 };
 </script>
