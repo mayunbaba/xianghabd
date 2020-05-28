@@ -25,46 +25,42 @@ export default {
   data() {
     return {
       times: 0,
-      list:[],
+      list: [],
+      waterData: []
     };
   },
-  methods: {},
-  computed: {
-    waterData() {
-      let list = [];
-      for (let i = 0; i < this.col; i++) {
-        list.push([]);
-      }
-      console.log(list, "list");
-      this.data.forEach((item, index) => {
-        list[index % this.col].push(item);
-      });
+  computed(){
+    // waterData(){
+    //   this.updateWaterfall();
+    // }
+  },
+  methods: {
+    updateWaterfall() {
       let itemH = [];
-      this.$nextTick(() => {
-        this.times++;
-        for (let i = 0; i < this.col; i++) {
-          if (document.querySelector(".item" + i)) {
-            itemH.push(document.querySelector(".item" + i).clientHeight);
-          }
+      let item = this.data.shift();
+      let viewShortIndex = 0;
+      if (item == null) {
+        return;
+      }
+      for (let i = 0; i < this.col; i++) {
+        if (document.querySelector(".item" + i)) {
+          itemH.push(document.querySelector(".item" + i).clientHeight);
         }
-        let len = JSON.parse(JSON.stringify(itemH)).sort((a, b) => a - b);
-
-        console.log(itemH, len);
-        console.log(len[len.length - 1] - len[0]);
-        // if (len[len.length - 1] - len[0] > 186) {
-        //   let min = itemH.indexOf(len[0]);
-        //   let max = itemH.indexOf(len[len.length - 1]);
-        //   console.log(min, max);
-        //   if (this.times > 1) return;
-        //   list[min].push(list[max].pop());
-        //   console.log(list);
-        //   this.list = list;
-        // }
+      }
+      viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
+      this.waterData[viewShortIndex].push(item);
+      this.$nextTick(function() {
+        this.updateWaterfall();
       });
-      return list;
     }
   },
+  mounted() {
+    this.updateWaterfall();
+  },
   created() {
+    for (let i = 0; i < this.col; i++) {
+      this.waterData.push([]);
+    }
   }
 };
 </script>
