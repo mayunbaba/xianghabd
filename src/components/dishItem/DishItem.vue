@@ -4,7 +4,7 @@
       :src="item.image.url"
     >
     <div class="bottom">
-      <div class="title">{{index}}{{item.title}}</div>
+      <div class="title">{{item.index}}{{item.title}}</div>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 .dish-item {
   border-radius: 0.1rem;
   box-shadow: 0 0 0.1rem #e6e6e6;
-  width: 3.34rem;
+  width: 100%;
   overflow: hidden;
   .bottom {
     padding: 0.1rem 0.15rem 0.2rem;

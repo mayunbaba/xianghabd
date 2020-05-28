@@ -22,7 +22,7 @@
       v-show="index === activeIndex"
     >
       <div class="dish-wrap">
-        <water-fall :data="item" :col="2">
+        <water-fall :data="item" :col="5">
           <template v-slot:item="props">
             <dish-item :item="props.item" class="water-item"/>
           </template>
@@ -55,7 +55,7 @@ export default {
       loading: [],
       finished: [],
       scrollTop: [],
-      top: 0,
+      top: 0
     };
   },
   methods: {
@@ -96,6 +96,9 @@ export default {
             this.activeIndex,
             this.tabData[this.activeIndex]
           );
+          this.tabData[this.activeIndex].forEach((item, index) => {
+            this.tabData[this.activeIndex][index].index = index;
+          });
           this.nextUrls[this.activeIndex] = res.nextUrl;
           this.loading[this.activeIndex] = false;
           resolve();
@@ -138,6 +141,9 @@ export default {
   },
   created() {
     this.getTabData();
+    setTimeout(() => {
+      this.finished[0] = true;
+    }, 5000);
   },
   mounted() {
     this.$nextTick(() => {
@@ -154,7 +160,8 @@ export default {
   padding: 0 0.3rem;
   min-height: 100vh;
   .water-item {
-    margin: .22rem .22rem .22rem 0;
+    width: 1.2rem;
+    margin: 0.22rem 0.22rem 0.22rem 0;
   }
 }
 </style>
