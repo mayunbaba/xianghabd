@@ -52,6 +52,7 @@ export default {
     height: 44px;
     display: flex;
     background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
     &.sticky {
       position: absolute;
       top: 0;

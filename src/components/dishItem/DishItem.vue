@@ -2,10 +2,9 @@
   <div class="dish-item">
     <img
       :src="item.image.url"
-      :style="{width:imgWid,height:imgWid*item.image.height/item.image.width}"
     >
     <div class="bottom">
-      <div class="title">{{item.title}}</div>
+      <div class="title">{{index}}{{item.title}}</div>
     </div>
   </div>
 </template>
@@ -17,7 +16,7 @@ export default {
     item: {
       type: Object
     },
-    imgWid: {
+    index: {
       type:Number
     }
   }
@@ -30,7 +29,6 @@ export default {
   box-shadow: 0 0 0.1rem #e6e6e6;
   width: 3.34rem;
   overflow: hidden;
-  margin: 10px 0;
   .bottom {
     padding: 0.1rem 0.15rem 0.2rem;
     .title {

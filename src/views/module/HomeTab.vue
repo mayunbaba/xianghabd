@@ -1,8 +1,8 @@
 <template>
   <div class="home-tab">
     <!-- tab+滚动加载 -->
-    <Tabs sticky>
-      <Tab
+    <tabs sticky>
+      <tab
         :title="item.name"
         :name="index"
         v-for="(item,index) in tabList"
@@ -10,8 +10,8 @@
         activeColor="red"
         v-model="activeIndex"
         @click="tabChange"
-      ></Tab>
-    </Tabs>
+      ></tab>
+    </tabs>
     <van-list
       :immediate-check="false"
       :finished="finished[activeIndex]"
@@ -22,9 +22,11 @@
       v-show="index === activeIndex"
     >
       <div class="dish-wrap">
-        <div v-for="item in item" :key="item.code">
-          <dish-item :item="item" :imgWid="imgWid"/>
-        </div>
+        <water-fall :data="item" :col="2">
+          <template v-slot:item="props">
+            <dish-item :item="props.item" class="water-item"/>
+          </template>
+        </water-fall>
       </div>
     </van-list>
   </div>
@@ -34,13 +36,15 @@
 import { request } from "@/network/request";
 import Tabs from "@/components/tabs/Tabs";
 import Tab from "@/components/tabs/Tab";
-import DishItem from '@/components/dishItem/DishItem';
+import DishItem from "@/components/dishItem/DishItem";
+import WaterFall from "@/components/waterFall/WaterFall";
 export default {
   name: "HomeTab",
   components: {
     Tabs,
     Tab,
-    DishItem
+    DishItem,
+    WaterFall
   },
   data() {
     return {
@@ -52,7 +56,6 @@ export default {
       finished: [],
       scrollTop: [],
       top: 0,
-      imgWid: 0
     };
   },
   methods: {
@@ -139,8 +142,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.top = document.querySelector(".tabs-wrap").offsetTop;
-      this.imgWid =
-        3.34 * document.querySelector("html").style.fontSize.split("px")[0];
     });
   }
 };
@@ -149,14 +150,12 @@ export default {
 <style lang="less" scoped>
 .dish-wrap {
   width: 100%;
-  display: flex;
   box-sizing: border-box;
-  width: 100%;
-  padding: 0 15px;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  padding: 0 0.3rem;
   min-height: 100vh;
+  .water-item {
+    margin: .22rem .22rem .22rem 0;
+  }
 }
 </style>
 
