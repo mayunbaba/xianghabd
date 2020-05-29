@@ -161,7 +161,7 @@ export default {
   min-height: 100vh;
   .water-item {
     width: 2.2rem;
-    margin: 0.22rem 0.22rem 0.22rem 0;
+    margin: 0.22rem 0;
   }
 }
 </style>
