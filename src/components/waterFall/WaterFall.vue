@@ -25,19 +25,22 @@ export default {
   data() {
     return {
       times: 0,
-      list: [],
+      list: [], //每次的增量数据
       waterData: []
     };
   },
-  computed(){
-    // waterData(){
-    //   this.updateWaterfall();
-    // }
+  watch: {
+    data: {
+      handler(newValue, oldValue) {
+        this.list = newValue.slice(oldValue.length);
+        this.updateWaterfall();
+      }
+    }
   },
   methods: {
     updateWaterfall() {
       let itemH = [];
-      let item = this.data.shift();
+      let item = this.list.shift();
       let viewShortIndex = 0;
       if (item == null) {
         return;
@@ -48,19 +51,21 @@ export default {
         }
       }
       viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
+      console.log(itemH,viewShortIndex);
       this.waterData[viewShortIndex].push(item);
       this.$nextTick(function() {
         this.updateWaterfall();
       });
-    }
-  },
-  mounted() {
-    this.updateWaterfall();
+    },
   },
   created() {
     for (let i = 0; i < this.col; i++) {
       this.waterData.push([]);
     }
+    this.list = JSON.parse(JSON.stringify(this.data));
+    this.$nextTick(() => {
+      this.updateWaterfall();
+    });
   }
 };
 </script>
