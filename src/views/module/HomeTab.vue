@@ -24,7 +24,7 @@
       <div class="dish-wrap">
         <water-fall :data="item" :col="5">
           <template v-slot:item="props">
-            <dish-item :item="props.item" class="water-item"/>
+            <dish-item :item="props.item" :imgWid="itemW" class="water-item"/>
           </template>
         </water-fall>
       </div>
@@ -55,7 +55,8 @@ export default {
       loading: [],
       finished: [],
       scrollTop: [],
-      top: 0
+      top: 0,
+      itemW:0,
     };
   },
   methods: {
@@ -141,6 +142,8 @@ export default {
   },
   created() {
     this.getTabData();
+    this.itemW = 1.2 * document.documentElement.getBoundingClientRect().width / 7.5;
+    console.log(this.itemW);
     setTimeout(() => {
       this.finished[0] = true;
     }, 5000);

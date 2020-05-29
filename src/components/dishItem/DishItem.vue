@@ -2,9 +2,10 @@
   <div class="dish-item">
     <img
       :src="item.image.url"
+      :style="{width:imgWid+'px',height:imgWid*item.image.height/item.image.width+'px'}"
     >
     <div class="bottom">
-      <div class="title">{{item.index}}{{item.title}}</div>
+      <div class="title">{{item.title}}</div>
     </div>
   </div>
 </template>
@@ -16,14 +17,14 @@ export default {
     item: {
       type: Object
     },
-    index: {
+    imgWid: {
       type:Number
     }
-  }
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .dish-item {
   border-radius: 0.1rem;
   box-shadow: 0 0 0.1rem #e6e6e6;

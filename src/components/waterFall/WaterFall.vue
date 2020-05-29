@@ -51,12 +51,12 @@ export default {
         }
       }
       viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
-      console.log(itemH,viewShortIndex);
+      console.log(itemH, viewShortIndex, item.title);
       this.waterData[viewShortIndex].push(item);
-      this.$nextTick(function() {
+      this.$nextTick(()=> {
         this.updateWaterfall();
       });
-    },
+    }
   },
   created() {
     for (let i = 0; i < this.col; i++) {
