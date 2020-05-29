@@ -55,7 +55,6 @@ export default {
         }
       }
       viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
-      console.log(itemH, viewShortIndex, item.title);
       this.waterData[viewShortIndex].push(item);
       this.$nextTick(()=> {
         this.updateWaterfall();
@@ -77,5 +76,6 @@ export default {
 <style lang="less" scoped>
 .water-fall {
   display: flex;
+  justify-content: space-between;
 }
 </style>

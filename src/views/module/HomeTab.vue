@@ -23,7 +23,7 @@
     >
       <div class="dish-wrap">
         <!-- 如果页面只有一个瀑布流 index可不传递 如果多个瀑布流index必传[0,1,2,3] Number类型 -->
-        <water-fall :data="item" :index="index"  :col="5">
+        <water-fall :data="item" :index="index"  :col="3">
           <template v-slot:item="props">
             <dish-item :item="props.item" :imgWid="itemW" class="water-item"/>
           </template>
@@ -143,11 +143,7 @@ export default {
   },
   created() {
     this.getTabData();
-    this.itemW = 1.2 * document.documentElement.getBoundingClientRect().width / 7.5;
-    console.log(this.itemW);
-    setTimeout(() => {
-      this.finished[0] = true;
-    }, 5000);
+    this.itemW = 2.2 * document.documentElement.getBoundingClientRect().width / 7.5;
   },
   mounted() {
     this.$nextTick(() => {
@@ -164,7 +160,7 @@ export default {
   padding: 0 0.3rem;
   min-height: 100vh;
   .water-item {
-    width: 1.2rem;
+    width: 2.2rem;
     margin: 0.22rem 0.22rem 0.22rem 0;
   }
 }
