@@ -20,6 +20,10 @@ export default {
     col: {
       type: Number,
       default: 2
+    },
+    index:{
+      type:Number,
+      default:0
     }
   },
   data() {
@@ -47,7 +51,7 @@ export default {
       }
       for (let i = 0; i < this.col; i++) {
         if (document.querySelector(".item" + i)) {
-          itemH.push(document.querySelector(".item" + i).clientHeight);
+          itemH.push(document.querySelectorAll(".item" + i)[this.index].clientHeight);
         }
       }
       viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));

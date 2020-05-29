@@ -22,7 +22,8 @@
       v-show="index === activeIndex"
     >
       <div class="dish-wrap">
-        <water-fall :data="item" :col="5">
+        <!-- 如果页面只有一个瀑布流 index可不传递 如果多个瀑布流index必传[0,1,2,3] Number类型 -->
+        <water-fall :data="item" :index="index"  :col="5">
           <template v-slot:item="props">
             <dish-item :item="props.item" :imgWid="itemW" class="water-item"/>
           </template>
