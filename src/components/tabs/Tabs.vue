@@ -1,6 +1,6 @@
 <template>
   <div class="tabs-wrap">
-    <div class="tabs" :class="{sticky:sticky,fixed:isFixed}">
+    <div class="tabs" :class="{sticky:sticky,fixed:isFixed}" @click="scroll">
       <slot></slot>
     </div>
     <div class="tabs" v-if="sticky"></div>
@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       isFixed: false,
-      offsetTop: 0
+      offsetTop: 0,
+      scrollTop:0
     };
   },
   mounted() {
@@ -31,11 +32,16 @@ export default {
   },
   methods: {
     initHeight() {
-      var scrollTop =
+      this.scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      this.isFixed = scrollTop > this.offsetTop ? true : false;
+      this.isFixed = this.scrollTop > this.offsetTop ? true : false;
+    },
+    scroll(){
+      if(this.isFixed){
+        window.scroll(0,this.offsetTop);
+      }
     }
   },
   destroyed() {

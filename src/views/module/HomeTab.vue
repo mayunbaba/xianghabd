@@ -132,12 +132,12 @@ export default {
       if (this.tabData[this.activeIndex].length === 0) {
         this.getRecomData().then(() => {
           this.$nextTick(() => {
-            window.scroll(0, this.scrollTop[this.activeIndex]);
+            // window.scroll(0, this.scrollTop[this.activeIndex]);
           });
         });
       } else {
         this.$nextTick(() => {
-          window.scroll(0, this.scrollTop[this.activeIndex]);
+          // window.scroll(0, this.scrollTop[this.activeIndex]);
         });
       }
     }
