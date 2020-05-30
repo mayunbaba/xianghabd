@@ -129,7 +129,7 @@ export default {
       }
       this.scrollTop[this.activeIndex] = scrollTop;
       this.activeIndex = name;
-      if (!this.tabData[this.activeIndex]) {
+      if (this.tabData[this.activeIndex].length === 0) {
         this.getRecomData().then(() => {
           this.$nextTick(() => {
             window.scroll(0, this.scrollTop[this.activeIndex]);
