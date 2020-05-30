@@ -27,6 +27,7 @@ const routes = [
     component: Home,
     meta: {
       title: '香哈菜谱',
+      keepAlive: true
     },
   },
   {
@@ -35,6 +36,7 @@ const routes = [
     component: Classify,
     meta: {
       title: '分类',
+      keepAlive: true
     }
   },
   {
@@ -43,6 +45,7 @@ const routes = [
     component: Comment,
     meta: {
       title: '消息',
+      keepAlive: true
     }
   },
   {
@@ -51,15 +54,14 @@ const routes = [
     component: User,
     meta: {
       title: '我的',
+      keepAlive: true
     },
-    beforeEnter(to,from,next){
-      console.log(store.state.userInfo.code);
-      if(store.state.userInfo.code){
+    beforeEnter(to, from, next) {
+      if (store.state.userInfo.code) {
         next();
-      }else{
+      } else {
         next('/login');
       }
-      console.log(to,from,next);
     }
   },
   {
@@ -98,8 +100,27 @@ const router = new VueRouter({
 })
 // 前置守卫（hook）
 router.beforeEach((to, from, next) => {
+  if (from.meta.keepAlive) {
+    let scroll = {
+      x: document.documentElement.scrollLeft,
+      y: document.documentElement.scrollTop
+    }
+    store.commit('setScroll', {
+      key: from.name,
+      value: scroll
+    })
+  }
   document.title = to.meta.title;
   next();
+  
+})
+
+router.afterEach((to)=>{
+  if(to.meta.keepAlive && store.state.scroll[to.name]){
+    setTimeout(() => {
+      window.scroll(store.state.scroll[to.name].x,store.state.scroll[to.name].y);
+    });
+  }
 })
 
 export default router

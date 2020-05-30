@@ -57,18 +57,7 @@ export default {
   },
   activated() {
     this.$parent.path = this.$route.path;
-    setTimeout(() => {
-      window.scroll(this.scroll.x, this.scroll.y);
-    }, 0);
   },
-
-  beforeRouteLeave(to, from, next) {
-    this.scroll = {
-      x: document.documentElement.scrollLeft,
-      y: document.documentElement.scrollTop
-    };
-    next();
-  }
 };
 </script>
 

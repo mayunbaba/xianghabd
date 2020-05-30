@@ -7,7 +7,8 @@ export default new Vuex.Store({
 
   state: {
     userInfo: {},
-    token: {}
+    token: {},
+    scroll: {},
   },
 
   actions: {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 
     setToken(state, payload) {
       Vue.set(state, 'token', payload);
+    },
+    setScroll(state, payload) {
+      Vue.set(state.scroll, payload.key, payload.value);
     }
   },
 
