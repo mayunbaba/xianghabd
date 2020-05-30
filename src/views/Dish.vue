@@ -1,15 +1,14 @@
 <template>
-  <div class="user">
-    user
+  <div class="dish">
+dish
   </div>
 </template>
 
 <script>
-import store from '../store';
+
 export default {
-  name: 'User',
+  name: 'Dish',
   created(){
-    console.log(store.state.userInfo.code);
   }
 }
 </script>

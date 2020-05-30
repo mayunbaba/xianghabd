@@ -56,6 +56,7 @@ export default {
     this.initData();
   },
   activated() {
+    this.$parent.path = this.$route.path;
     setTimeout(() => {
       window.scroll(this.scroll.x, this.scroll.y);
     }, 0);

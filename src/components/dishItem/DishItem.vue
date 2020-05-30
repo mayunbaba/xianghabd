@@ -1,5 +1,5 @@
 <template>
-  <div class="dish-item">
+  <div class="dish-item" @click="goDish">
     <img
       :src="item.image.url"
       :style="{width:imgWid+'px',height:imgWid*item.image.height/item.image.width+'px'}"
@@ -21,6 +21,11 @@ export default {
       type:Number
     }
   },
+  methods:{
+    goDish(){
+      this.$router.push('/dish');
+    }
+  }
 };
 </script>
 

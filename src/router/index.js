@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store';
 
-const Home = () => import('../views/Home.vue')
-const Classify = () => import('../views/Classify.vue')
-const Comment = () => import('../views/Comment.vue')
-const User = () => import('../views/User.vue')
+const Home = () => import('../views/Home')
+const Classify = () => import('../views/Classify')
+const Comment = () => import('../views/Comment')
+const User = () => import('../views/User')
+const Login = () => import('../views/Login')
+const Dish = () => import('../views/Dish')
 
 
 
@@ -48,8 +51,33 @@ const routes = [
     component: User,
     meta: {
       title: '我的',
+    },
+    beforeEnter(to,from,next){
+      console.log(store.state.userInfo.code);
+      if(store.state.userInfo.code){
+        next();
+      }else{
+        next('/login');
+      }
+      console.log(to,from,next);
     }
-  }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      title: '登录',
+    }
+  },
+  {
+    path: '/dish',
+    name: 'Dish',
+    component: Dish,
+    meta: {
+      title: '',
+    }
+  },
 ]
 
 

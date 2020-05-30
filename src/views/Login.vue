@@ -1,15 +1,14 @@
 <template>
-  <div class="user">
-    user
+  <div class="login">
+login
   </div>
 </template>
 
 <script>
-import store from '../store';
+
 export default {
-  name: 'User',
+  name: 'Login',
   created(){
-    console.log(store.state.userInfo.code);
   }
 }
 </script>
