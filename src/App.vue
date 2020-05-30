@@ -28,7 +28,6 @@
 
 
 <script>
-
 export default {
   name: "app",
   component: {},
@@ -76,7 +75,7 @@ export default {
     $route(to) {
       this.path = to.path;
     }
-  },
+  }
 };
 </script>
 
