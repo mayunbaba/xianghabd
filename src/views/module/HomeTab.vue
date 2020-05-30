@@ -1,7 +1,7 @@
 <template>
   <div class="home-tab">
     <!-- tab+滚动加载 -->
-    <tabs sticky>
+    <tabs sticky recordScroll>
       <tab
         :title="item.name"
         :name="index"
@@ -55,8 +55,6 @@ export default {
       nextUrls: [],
       loading: [],
       finished: [],
-      scrollTop: [],
-      top: 0,
       itemW: 0
     };
   },
@@ -67,7 +65,6 @@ export default {
         this.tabList = res.tabList;
         this.tabList.forEach((item, index) => {
           this.nextUrls[index] = "type=" + this.tabList[index].type;
-          this.scrollTop[index] = 0;
           this.tabData[index] = [];
           if (item.type == res.type) {
             this.activeIndex = index;
@@ -110,35 +107,9 @@ export default {
     },
     // tab切换
     tabChange(name) {
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      if (scrollTop >= this.top) {
-        this.scrollTop.forEach((item, index) => {
-          if (item < this.top) {
-            this.scrollTop[index] = this.top;
-          }
-        });
-      } else {
-        this.scrollTop.forEach((item, index) => {
-          if (item >= this.top) {
-            this.scrollTop[index] = scrollTop;
-          }
-        });
-      }
-      this.scrollTop[this.activeIndex] = scrollTop;
       this.activeIndex = name;
       if (this.tabData[this.activeIndex].length === 0) {
-        this.getRecomData().then(() => {
-          this.$nextTick(() => {
-            // window.scroll(0, this.scrollTop[this.activeIndex]);
-          });
-        });
-      } else {
-        this.$nextTick(() => {
-          // window.scroll(0, this.scrollTop[this.activeIndex]);
-        });
+        this.getRecomData()
       }
     }
   },
@@ -147,11 +118,6 @@ export default {
     this.itemW =
       (2.2 * document.documentElement.getBoundingClientRect().width) / 7.5;
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.top = document.querySelector(".tabs-wrap").offsetTop;
-    });
-  }
 };
 </script>
 

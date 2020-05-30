@@ -14,13 +14,18 @@ export default {
     sticky: {
       type: Boolean,
       default: false
+    },
+    recordScroll: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isFixed: false,
-      offsetTop: 0,
-      scrollTop:0
+      offsetTop: 0, //tab距离顶部记录
+      scrollTop: 0, //页面滚动条高度
+      tabScrollTop: [] //记录子tab滚动条高度
     };
   },
   mounted() {
@@ -38,9 +43,10 @@ export default {
         document.body.scrollTop;
       this.isFixed = this.scrollTop > this.offsetTop ? true : false;
     },
-    scroll(){
-      if(this.isFixed){
-        window.scroll(0,this.offsetTop);
+    scroll() {
+      if(this.recordScroll) return;
+      if (this.isFixed) {
+        window.scroll(0, this.offsetTop);
       }
     }
   },

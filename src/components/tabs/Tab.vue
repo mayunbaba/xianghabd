@@ -33,10 +33,15 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      top: 0
+    };
   },
   computed: {
     isActive() {
+      if (this.$parent.recordScroll) {
+        window.scroll(0, this.$parent["tabScrollTop"][this.value]);
+      }
       return this.name == this.value;
     },
     activeStyle() {
@@ -55,8 +60,42 @@ export default {
   },
   methods: {
     itemClick() {
+      if (this.$parent.recordScroll) {
+        this.recordScrollEvent();
+      }
       this.$emit("click", this.name);
+    },
+    recordScrollEvent() {
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      let tabScrollTop = this.$parent["tabScrollTop"];
+      if (scrollTop >= this.top) {
+        tabScrollTop.forEach((item, index) => {
+          if (item < this.top) {
+            tabScrollTop[index] = this.top;
+          }
+        });
+      } else {
+        tabScrollTop.forEach((item, index) => {
+          tabScrollTop[index] = scrollTop;
+        });
+      }
+      tabScrollTop[this.value] = scrollTop;
+      this.$parent["tabScrollTop"] = tabScrollTop;
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      let len = this.$parent.$children.length;
+      if (len > 0) {
+        for (let i = 0; i < len; i++) {
+          this.$parent["tabScrollTop"][i] = 0;
+        }
+      }
+      this.top = this.$parent["offsetTop"];
+    });
   }
 };
 </script>
