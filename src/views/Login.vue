@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-login
+login{{$route.params.prepath}}
   </div>
 </template>
 
@@ -9,6 +9,9 @@ login
 export default {
   name: 'Login',
   created(){
+    setTimeout(()=>{
+      this.$router.push(decodeURIComponent(this.$route.params.prepath));
+    },5000);
   }
 }
 </script>

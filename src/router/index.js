@@ -56,16 +56,16 @@ const routes = [
       title: '我的',
       keepAlive: true
     },
-    beforeEnter(to, from, next) {
-      if (store.state.userInfo.code) {
-        next();
-      } else {
-        next('/login');
-      }
-    }
+    // beforeEnter(to, from, next) {
+    //   if (store.state.userInfo.code) {
+    //     next();
+    //   } else {
+    //     next('/login');
+    //   }
+    // }
   },
   {
-    path: '/login',
+    path: '/login/:prepath',
     name: 'Login',
     component: Login,
     meta: {
@@ -110,15 +110,20 @@ router.beforeEach((to, from, next) => {
       value: scroll
     })
   }
+  if (to.name == 'User') {
+    if (!store.state.userInfo.code) {
+      router.push('/login/'+encodeURIComponent(to.path));
+    }
+  }
   document.title = to.meta.title;
   next();
-  
+
 })
 
-router.afterEach((to)=>{
-  if(to.meta.keepAlive && store.state.scroll[to.name]){
+router.afterEach((to) => {
+  if (to.meta.keepAlive && store.state.scroll[to.name]) {
     setTimeout(() => {
-      window.scroll(store.state.scroll[to.name].x,store.state.scroll[to.name].y);
+      window.scroll(store.state.scroll[to.name].x, store.state.scroll[to.name].y);
     });
   }
 })
