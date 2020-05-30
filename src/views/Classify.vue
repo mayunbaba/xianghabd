@@ -13,9 +13,6 @@ export default {
       }
     };
   },
-  activated() {
-    this.$parent.path = this.$route.path;
-  },
   created() {},
   
 };

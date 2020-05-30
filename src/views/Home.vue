@@ -55,9 +55,6 @@ export default {
   created() {
     this.initData();
   },
-  activated() {
-    this.$parent.path = this.$route.path;
-  },
 };
 </script>
 

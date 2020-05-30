@@ -28,12 +28,11 @@
 
 
 <script>
-import { GetUrlRelativePath } from "@/assets/js/common";
 
 export default {
   name: "app",
   component: {},
-  data: () => {
+  data() {
     return {
       path: "",
       nav: [
@@ -73,10 +72,11 @@ export default {
     };
   },
   methods: {},
-  created() {
-    //首次进入关联路由和icon状态
-    this.path = "/" + GetUrlRelativePath(location.href).split("/")[1];
-  }
+  watch: {
+    $route(to) {
+      this.path = to.path;
+    }
+  },
 };
 </script>
 
