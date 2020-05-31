@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    user
+    {{$store.state.userInfo}}
   </div>
 </template>
 

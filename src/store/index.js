@@ -10,7 +10,7 @@ Vue.use(Vuex)
 // } catch (e) { }
 
 
-let token,userInfo;
+let token = {},userInfo={};
 try{
     if(localStorage.token){
       token=JSON.parse(localStorage.token)
@@ -36,6 +36,7 @@ export default new Vuex.Store({
 
   mutations: {
     setUserInfo(state, payload) {
+      localStorage.userInfo = JSON.stringify(payload);
       Vue.set(state, 'userInfo', payload);
     },
 

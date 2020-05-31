@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <!-- 顶部基础信息 -->
+    {{$store.state.userInfo}}
     <div class="top">
       <van-search placeholder="搜菜谱、食材" background="#000" disabled @click="goSearch"/>
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
