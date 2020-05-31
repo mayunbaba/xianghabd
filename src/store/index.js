@@ -3,11 +3,30 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
+// try {
+  
+  
+// } catch (e) { }
+
+
+let token,userInfo;
+try{
+    if(localStorage.token){
+      token=JSON.parse(localStorage.token)
+    }
+    if(localStorage.userInfo){
+      userInfo=JSON.parse(localStorage.userInfo)
+    }
+} catch (e){
+  console.log(e);
+}
+
 export default new Vuex.Store({
 
   state: {
-    userInfo: {},
-    token: {},
+    userInfo: userInfo,
+    token: token,
     scroll: {},
   },
 
@@ -21,6 +40,7 @@ export default new Vuex.Store({
     },
 
     setToken(state, payload) {
+      localStorage.token = JSON.stringify(payload);
       Vue.set(state, 'token', payload);
     },
     setScroll(state, payload) {
