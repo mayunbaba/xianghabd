@@ -37,10 +37,6 @@ export default {
   data() {
     return {
       modelList: {},
-      scroll: {
-        x: 0,
-        y: 0
-      }
     };
   },
   methods: {
