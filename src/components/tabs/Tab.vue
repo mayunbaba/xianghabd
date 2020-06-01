@@ -9,8 +9,8 @@
     </div>
     <div class="text-wrap">
       <div>{{title}}</div>
-      <div :style="activeStyle"></div>
     </div>
+    <div :style="activeStyle"></div>
   </div>
 </template>
 
@@ -45,6 +45,7 @@ export default {
       return this.name == this.value;
     },
     activeStyle() {
+      if(this.$scopedSlots['item-icon']) return {};
       return this.isActive
         ? {
             position: "absolute",
@@ -106,16 +107,14 @@ export default {
   text-align: center;
   height: 44px;
   font-size: 14px;
-  line-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
   img {
     width: 24px;
     height: 24px;
-    margin-top: 3px;
     vertical-align: middle;
-    margin-bottom: 2px;
-  }
-  .text-wrap {
-    position: relative;
   }
 }
 </style>
